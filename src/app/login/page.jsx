@@ -2,15 +2,17 @@
 // Run in the front-end
 // Create a url path .../login
 
+import { useRouter } from "next/navigation";
+
 // const LOGIN_URL = "http://127.0.0.1:8000/api/token/pair"
 const LOGIN_URL = "/api/login/"
 
 export default function Page() {
+    const router = useRouter();
 
     async function handleSubmit(event) {
         event.preventDefault();
-        console.log(event, event.target);
-
+        
         const formData = new FormData(event.target);
         const objectFromForm = Object.fromEntries(formData);
         const jsonData = JSON.stringify(objectFromForm); // data to send with our post request
@@ -23,10 +25,16 @@ export default function Page() {
         }
 
         const response = await fetch(LOGIN_URL, requestOptions);
-        const data = await response.json();
+        let data = {}
+        try {
+          data = await response.json()
+        } catch (error) {
+          console.log(error);
+        }
         console.log(data);
         if (response.ok) {
             console.log('Logged in!');
+            router.replace('/')
         }
     }
 
