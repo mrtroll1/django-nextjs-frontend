@@ -2,9 +2,9 @@
 
 import useSWR from "swr";
 
-const fetcher = (...args) => fetch(...args).then(res => res.json())
+const fetcher = (...args) => fetch(...args).then(res => res.json());
 
-const BOOKINGS_API_URL = '/api/bookings/'
+const BOOKINGS_API_URL = '/api/bookings/';
 
 export default function Home() {
   const {data, error, isLoading} = useSWR(BOOKINGS_API_URL, fetcher);

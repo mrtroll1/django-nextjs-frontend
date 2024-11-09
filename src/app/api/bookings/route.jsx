@@ -26,5 +26,5 @@ export async function GET(request) {
         return NextResponse.json({status: 401}, ...data);
     }
 
-    return NextResponse.json({}, {status: 200});
+    return NextResponse.json({"data": data}, {status: 200});
 }
