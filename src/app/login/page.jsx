@@ -4,13 +4,27 @@ import { useAuth } from "@/components/authProvider";
 // Create a url path .../login
 
 // const LOGIN_URL = "http://127.0.0.1:8000/api/token/pair"
-const LOGIN_URL = "/api/login/"
+const LOGIN_URL = "/api/login/";
+
+const LOCAL_STORAGE_KEY = 'is-logged-in';
 
 export default function Page() {
+    console.log('Opened login page')
+
     const auth = useAuth();
+
+    // const authStatus = localStorage.getItem(LOCAL_STORAGE_KEY);
+    // if (authStatus) {
+    //     const authStatusInt = parseInt(authStatus);
+    //     if (authStatusInt === 1) {
+    //         auth.login();
+    //     }
+    // }
 
     async function handleSubmit(event) {
         event.preventDefault();
+
+        console.log('handleSubmit on the login page')
         
         const formData = new FormData(event.target);
         const objectFromForm = Object.fromEntries(formData);

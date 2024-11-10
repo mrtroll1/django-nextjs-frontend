@@ -24,6 +24,7 @@ const fetcher = async url => {
 const BOOKINGS_API_URL = '/api/bookings/';
 
 export default function Home() {
+  console.log('Opened the bookings page');
   const auth = useAuth();
   const {data, error, isLoading} = useSWR(BOOKINGS_API_URL, fetcher);
 

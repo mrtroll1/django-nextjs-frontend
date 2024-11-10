@@ -27,10 +27,20 @@ export function AuthProvider({children}) {
     }, [])
 
     const login = () => {
+        console.log('Called login function');
         setIsAuthenticated(true);
         localStorage.setItem(LOCAL_STORAGE_KEY, '1');
-        const nextUrl = searchParams.get("next") || LOGIN_REDIRECT_URL;
-        router.replace(nextUrl);
+        const nextUrl = searchParams.get("next");
+        const invalidNextUrl = ['/login', '/logout'];
+        const nextUrlValid = nextUrl && nextUrl.startsWith("/") && !invalidNextUrl.includes(nextUrl);
+        console.log(localStorage.getItem(LOCAL_STORAGE_KEY));
+        console.log(`Redirecting to ${nextUrl} if ${nextUrlValid}`);
+        if (nextUrlValid) {
+            console.log('Success!');
+            router.replace(nextUrl);
+        } else {
+            router.replace(LOGIN_REDIRECT_URL);
+        }
     }
 
     const logout = () => {
@@ -40,6 +50,7 @@ export function AuthProvider({children}) {
     }
 
     const loginRequiredRedirect = () => {
+        console.log('Called loginRedirect function');
         setIsAuthenticated(false);
         localStorage.setItem(LOCAL_STORAGE_KEY, '0');
         const loginNextURL = `${LOGIN_REQUIRED_URL}?next=${currentPath}`;

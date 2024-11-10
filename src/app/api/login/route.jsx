@@ -22,7 +22,6 @@ export async function POST(request) {
         const authRefreshToken = responseData.refresh;
         await setToken(authToken);
         await setRefreshToken(authRefreshToken);
-        console.log('Logged in!');
         return NextResponse.json({"loggedIn": true, "cookie": authToken}, {status: 200})
     }
 
